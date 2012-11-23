@@ -22,7 +22,8 @@ See: <https://github.com/quanwei888/mysqlq>
 安装
 -------------
 ./configure --prefix=<PREFIX> --with-libevent=<LIBEVENT-DIR> --with-bdb=<BDB-DIR> --with-mysql=<MYSQL_DIR>
-
+make
+make install
 启动
 -------------
 ./mysqlq --mysql-host=127.0.0.1 --mysql-port==3306 --mysql-user=root --mysql-password=123456
