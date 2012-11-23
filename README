@@ -4,7 +4,7 @@ MysqlQ - Mysql Row Changce Callback Service over MemcacheQ
 
 简介
 =========
-* mysqlq基于memcacheq开发，监听mysql主库的binglog事件（基于row-based复制模式），将变化的数据行顺序加入以MYSQL_EVENT为名的队列，客户端以memcacheq协议来取队列中的数据。
+* mysqlq基于memcacheq开发，同步mysql主库的binglog事件（基于row-based复制模式），将变化的数据行顺序加入以MYSQL_EVENT为名的队列，客户端以memcacheq协议来取队列中的数据。
 
 快速开始
 ===============
