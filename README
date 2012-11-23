@@ -25,7 +25,16 @@ See: <https://github.com/quanwei888/mysqlq>
 
 启动
 -------------
+./mysqlq --mysql-host=127.0.0.1 --mysql-port==3306 --mysql-user=root --mysql-password=123456
 
+参数说明
+-------------
+--mysql-host=<host>            master mysql host,default is '127.0.0.1'
+--mysql-port=<port>            master mysql port,default is 3306
+--mysql-user=<user>            master mysql user,default is 'root'
+--mysql-password=<password>        master mysql password,default is empty
+--mysql-serverid=<serverid>        master mysql serverid,default is 12345
+--mysql-ralaypath=<ralaypath>  ralay path,default is '/tmp/ralay'
 
 
 命令

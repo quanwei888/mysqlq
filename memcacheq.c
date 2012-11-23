@@ -1848,9 +1848,9 @@ static void usage(void) {
     printf("--------------------Mysqlcb Options-------------------------------\n");
     printf("--mysql-host=<host>            master mysql host,default is '127.0.0.1'\n"
     	   "--mysql-port=<port>            master mysql port,default is 3306\n"
-    	   "--mysql-host=<user>            master mysql user,default is 'root'\n"
-    	   "--mysql-host=<password>        master mysql password,default is empty\n"
-    	   "--mysql-host=<serverid>        master mysql serverid,default is 12345\n"
+    	   "--mysql-user=<user>            master mysql user,default is 'root'\n"
+    	   "--mysql-password=<password>        master mysql password,default is empty\n"
+    	   "--mysql-serverid=<serverid>        master mysql serverid,default is 12345\n"
     	   "--mysql-ralaypath=<ralaypath>  ralay path,default is '/tmp/ralay'\n"
            );
 #ifdef USE_THREADS
