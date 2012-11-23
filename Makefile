@@ -32,7 +32,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = memcacheq$(EXEEXT)
+bin_PROGRAMS = mysqlq$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -50,12 +50,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_memcacheq_OBJECTS = memcacheq.$(OBJEXT) item.$(OBJEXT) \
+am_mysqlq_OBJECTS = memcacheq.$(OBJEXT) item.$(OBJEXT) \
 	thread.$(OBJEXT) bdb.$(OBJEXT) hashtable.$(OBJEXT) \
 	hash.$(OBJEXT) daemon.$(OBJEXT) mysqlcb_buffer.$(OBJEXT) \
 	mysqlcb.$(OBJEXT)
-memcacheq_OBJECTS = $(am_memcacheq_OBJECTS)
-memcacheq_LDADD = $(LDADD)
+mysqlq_OBJECTS = $(am_mysqlq_OBJECTS)
+mysqlq_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -64,8 +64,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(memcacheq_SOURCES)
-DIST_SOURCES = $(memcacheq_SOURCES)
+SOURCES = $(mysqlq_SOURCES)
+DIST_SOURCES = $(mysqlq_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -83,17 +83,17 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/quanwei/git/myspace/mysqlq/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
-AUTOCONF = ${SHELL} /home/quanwei/git/myspace/mysqlq/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/quanwei/git/myspace/mysqlq/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/quanwei/git/myspace/mysqlq/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run automake-1.11
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -I/home/quanwei/local/mysql/include -g -O2
+CFLAGS = -I/usr/include -g -O2
 CPP = gcc -E
-CPPFLAGS = -I/usr/local/BerkeleyDB.4.7/include -I/home/quanwei/local/mysql/include 
+CPPFLAGS = -I/usr/local/BerkeleyDB.4.7/include -I/usr/include 
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -110,11 +110,11 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = -L/usr/local/BerkeleyDB.4.7/lib 
 LIBOBJS = 
-LIBS = -lm -ldb -L/home/quanwei/local/mysql/lib -lmysqlclient  -levent
+LIBS = -lm -ldb -L/usr/lib -lmysqlclient  -levent
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/quanwei/git/myspace/mysqlq/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
-MYSQL_LIB_PATH = /home/quanwei/local/mysql
+MYSQL_LIB_PATH = /usr
 OBJEXT = o
 PACKAGE = memcacheq
 PACKAGE_BUGREPORT = stvchu@gmail.com
@@ -128,10 +128,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 0.2.0
-abs_builddir = /home/quanwei/git/myspace/mysqlq
-abs_srcdir = /home/quanwei/git/myspace/mysqlq
-abs_top_builddir = /home/quanwei/git/myspace/mysqlq
-abs_top_srcdir = /home/quanwei/git/myspace/mysqlq
+abs_builddir = /home/quanwei/mysqlq/mysqlq
+abs_srcdir = /home/quanwei/mysqlq/mysqlq
+abs_top_builddir = /home/quanwei/mysqlq/mysqlq
+abs_top_srcdir = /home/quanwei/mysqlq/mysqlq
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -150,7 +150,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/quanwei/git/myspace/mysqlq/install-sh
+install_sh = ${SHELL} /home/quanwei/mysqlq/mysqlq/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -170,7 +170,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-memcacheq_SOURCES = memcacheq.c item.c memcacheq.h thread.c bdb.c hashtable.h hashtable.c hash.h hash.c daemon.c mysqlcb_buffer.c mysqlcb.c
+mysqlq_SOURCES = memcacheq.c item.c memcacheq.h thread.c bdb.c hashtable.h hashtable.c hash.h hash.c daemon.c mysqlcb_buffer.c mysqlcb.c
 EXTRA_DIST = tools AUTHORS LICENSE run.sh
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -263,9 +263,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-memcacheq$(EXEEXT): $(memcacheq_OBJECTS) $(memcacheq_DEPENDENCIES) $(EXTRA_memcacheq_DEPENDENCIES) 
-	@rm -f memcacheq$(EXEEXT)
-	$(LINK) $(memcacheq_OBJECTS) $(memcacheq_LDADD) $(LIBS)
+mysqlq$(EXEEXT): $(mysqlq_OBJECTS) $(mysqlq_DEPENDENCIES) $(EXTRA_mysqlq_DEPENDENCIES) 
+	@rm -f mysqlq$(EXEEXT)
+	$(LINK) $(mysqlq_OBJECTS) $(mysqlq_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
