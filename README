@@ -48,7 +48,19 @@ See: <https://github.com/quanwei888/mysqlq>
    <your message body will come here>\r\n
    END\r\n
 
-   
+数据格式
+---------
+队列中数据以JSON形式存放
+
+* type：类型，int，2=增加，3=删除
+* time：行变化的时间，int，时间戳
+* table：行数据所属的表，string，"数据库名.表名"
+* data：行数据,array(字段值)，顺序同表中字段顺序
+
+如：
+{"type":2,"time":1353654342,"table":"test.t1","data":["6","1"]}
+
+
 PHP Example
 ---------
 
@@ -57,8 +69,9 @@ PHP Example
   $mysqlqClient = memcache_connect('127.0.0.1', 21201);
 
   /* consume a message from 'demoqueue1' */
-  memcache_get($mysqlqClient, 'MYSQL_EVENT');
-
+  $event = memcache_get($mysqlqClient, 'MYSQL_EVENT');
+  
+  var_dump(json_decode($event,true));
   memcache_close($memcache_obj);
   ?>
   
