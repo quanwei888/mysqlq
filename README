@@ -2,6 +2,7 @@
 MysqlQ - Mysql Row Changce Callback Service over MemcacheQ
 ==========================================================
 
+*** bata阶段，还有bug ***
 简介
 =========
 * mysqlq基于memcacheq开发，同步mysql主库的binglog事件（基于row-based复制模式），将变化的数据行顺序加入以MYSQL_EVENT为名的队列，客户端以memcacheq协议来取队列中的数据。
@@ -58,9 +59,29 @@ make install
 * table：行数据所属的表，string，"数据库名.表名"
 * data：行数据,array(字段值)，顺序同表中字段顺序
 
-如：
-{"type":2,"time":1353654342,"table":"test.t1","data":["6","1"]}
+如在数据库中进行如下操作
+************************************************************************************************
+新建一张数据表
+drop table if exists test.userinfo ;
+create table test.userinfo 
+(
+	id int unsigned auto_increment primary key, 
+	userName char(32) not null default '',
+	password varchar(32) not null default '',
+	description text not null default ''
+)charset=utf8;
 
+执行：insert into test.userinfo (userName,password,description) values('user1','111111','用户1');
+队列中：{"type":2,"time":1353656040,"table":"test.userinfo","data":["1","user1","111111","用户1"]}
+
+执行：insert into test.userinfo (userName,password,description) values('user2','111111','用户2');
+队列中：{"type":2,"time":1353656082,"table":"test.userinfo","data":["2","user2","111111","用户2"]}
+
+执行：delete from test.userinfo;
+队列中：
+{"type":3,"time":1353656108,"table":"test.userinfo","data":["1","user1","111111","用户1"]}
+{"type":3,"time":1353656108,"table":"test.userinfo","data":["2","user2","111111","用户2"]}
+************************************************************************************************
 
 PHP Example
 ---------

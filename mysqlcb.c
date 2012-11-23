@@ -53,7 +53,8 @@ int mycb_start() {
 		return -1;
 	}
 	if (mycb_conf.verbose > 0) {
-		fprintf(stdout, "[mysqlcb] [info] start file '%s', start pos '%d' \n", mycb_conf.ralayLogName, mycb_conf.ralayLogPos);
+		fprintf(stdout, "[mysqlcb] [info] start file '%s', start pos '%d' \n", mycb_conf.ralayLogName,
+				mycb_conf.ralayLogPos);
 	}
 
 	//发送dump命令
@@ -137,8 +138,8 @@ int mycb_init_ralay_log() {
 			mycb_conf.ralayLogName);
 
 	if ((ret = mycb_open_ralay_log()) != 0) {
-		fprintf(stderr, "[mysqlcb] [error] open ralay log file fail '%s' fail\n", mycb_conf.ralayLogFullName, __FILE__, __func__,
-				__LINE__);
+		fprintf(stderr, "[mysqlcb] [error] open ralay log file fail '%s' fail\n", mycb_conf.ralayLogFullName, __FILE__,
+				__func__, __LINE__);
 		return -1;
 	}
 
@@ -316,7 +317,8 @@ int mycb_read_packet() {
 }
 int mycb_write_to_ralay_file() {
 	if (mycb_conf.verbose > 0) {
-		fprintf(stdout, "[mysqlcb] [ralay] write to file size:%ld\n", mycb_conf.readBuf.limit - mycb_conf.readBuf.start - 1);
+		fprintf(stdout, "[mysqlcb] [ralay] write to file size:%ld\n",
+				mycb_conf.readBuf.limit - mycb_conf.readBuf.start - 1);
 	}
 	fwrite(&mycb_conf.readBuf.start + 1, mycb_conf.readBuf.limit - mycb_conf.readBuf.start - 1, 1,
 			mycb_conf.ralayLogFd);
@@ -496,6 +498,13 @@ int mycb_parse_tablemap_event() {
 			} else if (byte0 == MYSQLCB_TYPE_ENUM || byte0 == MYSQLCB_TYPE_SET) {
 				mycb_conf.fieldTypeMap[i] = byte0;
 				mycb_conf.fieldLenMap[i] = byte1;
+			} else {
+				size = byte1;
+				sizeByte = 1;
+				while ((size = size >> 8) > 0) {
+					sizeByte++;
+				}
+				mycb_conf.fieldLenMap[i] = sizeByte;
 			}
 			break;
 

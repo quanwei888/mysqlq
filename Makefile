@@ -91,7 +91,7 @@ AUTOMAKE = ${SHELL} /home/quanwei/mysqlq/mysqlq/missing --run automake-1.11
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -I/usr/include -g -O2
+CFLAGS = -I/usr/include -g 
 CPP = gcc -E
 CPPFLAGS = -I/usr/local/BerkeleyDB.4.7/include -I/usr/include 
 CYGPATH_W = echo
